@@ -4,6 +4,7 @@ import System.IO
 import System.Exit
 import Data.List
 import System.Directory
+import System.FilePath((</>))
 
 runAndPrint xs = do
                 putStrLn (concat (intersperse " " xs))
@@ -23,5 +24,6 @@ main = do
   copyFile "foldl_strict.hs" "foldl_strict_binary.hs"
   run ["ghc","--make","-O2","foldl_binary.hs"]
   run ["ghc","--make","-O2","foldl_strict_binary.hs"]
-  runAndPrint ["foldl_binary"]
-  runAndPrint ["foldl_strict_binary"]
+  currentDirectory <- getCurrentDirectory
+  runAndPrint [currentDirectory </> "foldl_binary"]
+  runAndPrint [currentDirectory </> "foldl_strict_binary"]
